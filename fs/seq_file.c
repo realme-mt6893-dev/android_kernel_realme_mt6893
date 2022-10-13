@@ -30,6 +30,7 @@ static void *seq_buf_alloc(unsigned long size)
 		return NULL;
 
 	return kvmalloc(size, GFP_KERNEL_ACCOUNT);
+	return kvmalloc(size, GFP_KERNEL);
 }
 
 /**

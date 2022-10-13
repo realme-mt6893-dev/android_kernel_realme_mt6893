@@ -348,6 +348,7 @@ static int dbgp_setup(struct usb_gadget *gadget,
 		if (ctrl->bRequestType == USB_DIR_OUT) {
 			return err;
 		} else {
+		if (ctrl->bRequestType & USB_DIR_IN) {
 			/* Cast away the const, we are going to overwrite on purpose. */
 			__le16 *temp = (__le16 *)&ctrl->wLength;
 
@@ -355,6 +356,12 @@ static int dbgp_setup(struct usb_gadget *gadget,
 			length = DBGP_REQ_LEN;
 		}
 	}
+
+		} else {
+			return err;
+		}
+	}
+
 
 	if (request == USB_REQ_GET_DESCRIPTOR) {
 		switch (value>>8) {
